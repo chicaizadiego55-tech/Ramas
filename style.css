@@ -1,3 +1,263 @@
-body { font-family: sans-serif; background-color: #f4f4f4; color: #333; padding: 20px; }
-.comando { background: white; padding: 15px; margin-bottom: 10px; border-left: 5px solid #2ecc71; border-radius: 4px; }
-h1 { color: #2c3e50; }
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  --surface:        #dde6ed;
+  --sh-light:       #ffffff;
+  --sh-dark:        #b8c6d0;
+
+  --neu-raise:
+    -8px -8px 20px var(--sh-light),
+     8px  8px 20px var(--sh-dark);
+
+  --neu-raise-md:
+    -6px -6px 14px var(--sh-light),
+     6px  6px 14px var(--sh-dark);
+
+  --neu-raise-sm:
+    -3px -3px  8px var(--sh-light),
+     3px  3px  8px var(--sh-dark);
+
+  --neu-inset:
+    inset -4px -4px 10px var(--sh-light),
+    inset  4px  4px 10px var(--sh-dark);
+
+  --neu-inset-sm:
+    inset -2px -2px  6px var(--sh-light),
+    inset  2px  2px  6px var(--sh-dark);
+
+  --accent:         #5b8dee;
+  --accent-2:       #41c9a0;
+  --text-primary:   #3a4a5c;
+  --text-secondary: #6b7f96;
+  --text-hint:      #9aafc2;
+
+  --r-xl:   28px;
+  --r-lg:   22px;
+  --r-md:   16px;
+  --r-sm:   10px;
+  --r-pill: 999px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--surface);
+  color: var(--text-secondary);
+  min-height: 100vh;
+  padding: 52px 32px 80px;
+}
+
+/* ── Header ── */
+header {
+  max-width: 860px;
+  margin: 0 auto 52px;
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  padding: 44px 52px 40px;
+  box-shadow: var(--neu-raise);
+  position: relative;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 52px; right: 52px;
+  height: 3px;
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+  box-shadow: 0 1px 0 rgba(255,255,255,.6);
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 32px; right: 48px;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--neu-inset);
+  opacity: .45;
+}
+
+h1 {
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -.025em;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+header p {
+  font-size: 14px;
+  color: var(--text-hint);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header p::before {
+  content: 'GIT';
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: var(--accent);
+  background: var(--surface);
+  box-shadow: var(--neu-raise-sm);
+  padding: 4px 14px;
+  border-radius: var(--r-pill);
+}
+
+/* ══════════════════════════════════════
+   CONTENEDOR — 1 columna centrada
+   Las cards se apilan verticalmente,
+   anchas y bien proporcionadas
+══════════════════════════════════════ */
+#contenedor {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* una columna = cards anchas */
+  gap: 30px;
+  max-width: 1000px;             /* ancho cómodo de lectura */
+  margin: 0 auto;
+}
+
+/* ── Cards ── */
+@keyframes surfaceRise {
+  from { opacity: 0; transform: translateY(18px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);   }
+}
+
+.comando {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: 32px 36px 28px;      /* padding generoso y equilibrado */
+  width: 100%;
+  border-left: none;
+  margin-bottom: 0;
+  box-shadow: var(--neu-raise-md);
+  transition:
+    box-shadow .28s cubic-bezier(.4,0,.2,1),
+    transform  .28s cubic-bezier(.4,0,.2,1);
+  animation: surfaceRise .42s cubic-bezier(.4,0,.2,1) both;
+  position: relative;
+  overflow: hidden;
+}
+
+.comando:nth-child(1) { animation-delay: .04s; }
+.comando:nth-child(2) { animation-delay: .11s; }
+.comando:nth-child(3) { animation-delay: .18s; }
+.comando:nth-child(4) { animation-delay: .25s; }
+.comando:nth-child(5) { animation-delay: .32s; }
+
+.comando:hover {
+  box-shadow:
+    -4px -4px 10px var(--sh-light),
+     4px  4px 10px var(--sh-dark);
+  transform: translateY(-2px);
+}
+
+.comando:active {
+  box-shadow: var(--neu-inset);
+  transform: translateY(0);
+  transition-duration: .08s;
+}
+
+/* ── Título ── */
+.comando h2 {
+  font-family: 'Fira Code', monospace;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+/* Ícono cuadrado hundido */
+.comando h2::before {
+  content: '';
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  box-shadow: var(--neu-inset);
+  transition: box-shadow .22s, color .22s;
+}
+
+.comando:hover h2::before {
+  box-shadow: var(--neu-raise-sm);
+}
+
+/* ── Separador grabado ── */
+.comando h2 + p::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: transparent;
+  box-shadow:
+    0 -1px 0 var(--sh-dark),
+    0  1px 0 var(--sh-light);
+  margin-bottom: 16px;
+}
+
+/* ── Descripción ── */
+.comando p {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  font-weight: 400;
+  padding-left: 60px;           /* alineado con el texto del título */
+}
+
+/* ── Bolita decorativa esquina ── */
+.comando::after {
+  content: '';
+  position: absolute;
+  bottom: 22px;
+  right: 24px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--neu-raise-sm);
+  transition: box-shadow .28s;
+}
+
+.comando:hover::after {
+  box-shadow: var(--neu-inset-sm);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track {
+  background: var(--surface);
+  border-radius: var(--r-pill);
+  box-shadow: var(--neu-inset-sm);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface);
+  border-radius: var(--r-pill);
+  box-shadow: var(--neu-raise-sm);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  body { padding: 32px 16px 60px; }
+  header { padding: 32px 28px; }
+  .comando { padding: 24px 22px 20px; }
+  .comando p { padding-left: 0; }
+}
